@@ -7,12 +7,5 @@ Import-Module ActiveDirectory
 
 #Finding the Domain Path
 Get-ADDomain   #<DC=Adatum,DC=com>
-
-New-ADOrganizationalUnit -Name "San Diego" -Path "DC=Adatum,DC=com"  #<creates the OU named San Diego & path is the domain path>
-
-#Verify the OU was created
-Get-ADOrganizationalUnit -Filter 'Name -eq "San Diego"'  #<filters the OUs to find the one named San Diego>
-
-
-
-aduserbu
+New-ADOrganizationalUnit -Name "San Diego" -Path "DC=Adatum,DC=com" -ProtectedFromAccidentalDeletion $true
+Get-ADOrganizationalUnit -Filter "Name -eq 'San Diego'"

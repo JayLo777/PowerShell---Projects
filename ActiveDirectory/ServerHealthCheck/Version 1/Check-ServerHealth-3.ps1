@@ -1,10 +1,30 @@
-#Version 3 of the Server Health Check script. This version includes error handling, checks for multiple disks, and generates an HTML report.
+<#Version 3 of the Server Health Check script. This version includes error handling, checks for multiple disks, and generates an HTML report.
+This script is designed to check the health of one or more computers and report on:
 
+Operating system info
+Uptime
+Memory usage
+Disk space
+Health status
+Error handling
+Optional HTML report switch
+
+Avition explanation:
+Think of this script like a maintenance inspection on an aircraft.
+Before a flight, you check fuel, engine condition, warning lights, and system status.
+
+This script does the same thing for computers:
+-Memory is like available fuel
+-Disk space is like storage capacity
+-Uptime is how long the aircraft has been flying without shutdown or maintenance
+-Error handling is what keeps the inspection going even if one aircraft has a problem
+
+#>
 <# Step 1: Accept one or more computer names.
 If no name is provided, use the local computer.#>
 #Enable-PSRemoting -Force allows the script to run on remote computers. 
 
-#Enable-PSRemoting -Force
+#Enable-PSRemoting -Force<<<<<<<<Use if it dont work>>>>
 
 param(
     [string[]]$ComputerName= $env:COMPUTERNAME,
@@ -155,8 +175,8 @@ Write-Host "CPU: $($cpu.Name)"
 Write-Host "CPU Load: $($cpu.LoadPercentage)%"
 
 if ($memoryUsagePercentage -gt 90) {
-    Write-Host "Fail: Disk usage is Critcally High 90%!" -ForegroundColor Red
-    $DiskStatus = "Fail: Disk usage is Critcally High!"   
+    Write-Host "Fail: Disk usage is Critically High 90%!" -ForegroundColor Red
+    $DiskStatus = "Fail: Disk usage is Critically High!"   
 }
 elseif ($DiskFailPercentage -ge 80) {
     Write-Host "Warning: Disk usage is High 80%!" -ForegroundColor Yellow

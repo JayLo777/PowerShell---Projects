@@ -1,26 +1,6 @@
-<#Routine Check Security Check Report
-This PowerShell script performs a basic security health 
-check on a Windows computer. It checks:
+#Security Check Report Script OnScreen.
 
-Local administrator accounts
-Firewall status
-Antivirus status
-Windows Defender status
-User Account Control (UAC)
-
-Then it:
-Shows the results on the screen
-Saves the results to a TXT file
-Saves the results to a CSV file
-Has an option to create an HTML report 
-
-Translated in Avaition language 
-Think of it like a pre-flight inspection for a computer.
-In aviation, before a flight, you inspect critical systems to make sure the aircraft is safe.
-This script does the same thing for a Windows system by checking important security controls.
-#>
 #-----Routine Admin Accounts Check-----#
-
 $TimeStamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
 $ReportFolder = ".\SecurityCheckReports"
 $SvrRptTxt = "$ReportFolder\SecurityCheckReport_$TimeStamp.txt"
@@ -61,7 +41,7 @@ catch {
 }
 
 
-#Using Try-Catch for more reliable error handling
+#Firewall Checks
 try {
     $FirewallProfile = Get-NetFirewallProfile
     $DisabledProfiles = $FirewallProfile | Where-Object { $_.Enabled -eq $false }
@@ -97,7 +77,7 @@ try {
         $Results += [PSCustomObject]@{
             Check = "Antivirus Status"
             Status = "PASS"
-            Details = "$Antivirus product detected: $($Antivirus.displayName)"
+            Details = "$Antivirus product detected: $($Antivirus.displayName -join ',')"
 
         }
     } 
@@ -151,7 +131,7 @@ try {
     if ($UAC.EnableLUA -eq 1) {
         $Results += [PSCustomObject]@{
             Check = "User Account Control Status"
-            Status = "PASS" -ForegroundColor Green
+            Status = "PASS"
             Details = "UAC is enabled"
         }
     } 
@@ -172,10 +152,7 @@ catch {
 }
 
 #Output to Screen
-$Results | Format-Table -AutoSize 
+$Results | Format-Table -AutoSize
 
-<#----Update Later with write-host and color coding for pass, warning, fail----
-if ($UAC.EnableLUA -eq -1) {
-    Write-Host "$UAC is disabled." -ForegroundColor Red
-}
-    #>
+
+#-----Go to the Security-Report to export the results to CSV, TXT, and HTML.-----#

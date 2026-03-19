@@ -1,0 +1,6 @@
+"Check","Status","Details"
+"Privileged Accounts - Local Administrators","WARNING","3 privileged accounts found: ADATUM\Domain Admins, LON-CL1\Admin, LON-CL1\Administrator"
+"Firewall Status","PASS","All firewall profiles are enabled"
+"Antivirus Status","PASS","AntiVirusProduct (instanceGuid = ""{D68DDC3A-831F-4fae-9E44-DA132C1ACF46}"") product detected: Windows Defender"
+"Windows Defender Status","PASS","Windows Defender is enabled and real-time protection is active"
+"User Account Control Status","PASS","UAC is enabled"

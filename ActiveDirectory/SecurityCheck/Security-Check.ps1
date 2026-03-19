@@ -131,7 +131,7 @@ try {
     if ($UAC.EnableLUA -eq 1) {
         $Results += [PSCustomObject]@{
             Check = "User Account Control Status"
-            Status = "PASS" 
+            Status = "PASS" -ForegroundColor Green
             Details = "UAC is enabled"
         }
     } 

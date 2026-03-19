@@ -1,6 +1,6 @@
-#This will generate a health report and save as a csv and txt file.
+#<The Script will provide a snapshot of the health of a server and return the results. 
 
-$os = Get-CimInstance Win32_OperatingSystem 
+$os = Get-CimInstance -Class Win32_OperatingSystem 
 $computerSystem = Get-CimInstance -Class Win32_ComputerSystem
 $cpu = Get-CimInstance -Class Win32_Processor
 $memory = Get-CimInstance -Class Win32_PhysicalMemory
@@ -56,22 +56,4 @@ if ($diskUsagePercentage -gt 90) {
 else {
     Write-Host "Healthy: Disk usage is within normal limits." -ForegroundColor Green
 }
-   [pscustomobject]@{
-            ComputerName = $Computer
-            OsName = $os.Caption
-            OsVersion = $os.Version
-            FreeMemoryGB = $freeMemory
-            DiskFreeGB = $freeDisk
-}
-   
-"Server Health Report - $env:COMPUTERNAME" | Out-File -FilePath $TxtReport
-"Generated on: $(Get-Date)" | Out-File -FilePath $TxtReport -Append
 
-$Results | Format-Table -AutoSize | Out-File -F ilePath $TxtReport -Append
-                                                    
-$Results | Export-Csv -Path $CsvReport -NoTypeInformation
-
-#--On page Update--#
-Write-host "`nReports saved to:"
-Write-host "TXT: $TxtReport"
-Write-host "CSV: $CsvReport"
